@@ -1,0 +1,29 @@
+services:
+  db_library:
+    image: "postgres:14.5"
+    restart: always
+    environment:
+      - POSTGRES_DB=ZHUYKOV_204
+      - POSTGRES_USER=ZHUYKOV_204
+      - POSTGRES_PASSWORD=ZHUYKOV_204
+    ports:
+      - "5432:5432"
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    volumes:
+      - "./db/scripts/zhuykov_204/library.sql:/docker-entrypoint-initdb.d/library.sql"
+      - "./db/config/zhuykov_204/custom_psql.conf:/etc/postgresql/postgresql.conf"
+    
+
+  db_trains:
+    image: "postgres:14.5"
+    restart: always
+    environment:
+      - POSTGRES_DB=ZHUYKOV_204
+      - POSTGRES_USER=ZHUYKOV_204
+      - POSTGRES_PASSWORD=ZHUYKOV_204
+    ports:
+      - "5433:5432"
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    volumes:
+      - "./db/scripts/zhuykov_204/trains.sql:/docker-entrypoint-initdb.d/trains.sql"
+      - "./db/config/zhuykov_204/custom_psql.conf:/etc/postgresql/postgresql.conf"
